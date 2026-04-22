@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinergi Selamat — Program KKP 2022</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:     #0B1D2E;
+  --navy2:    #132840;
+  --navy3:    #1C3A55;
+  --teal:     #0891B2;
+  --teal2:    #06B6D4;
+  --orange:   #F97316;
+  --orange2:  #FB923C;
+  --white:    #FFFFFF;
+  --offwhite: #F0F5FA;
+  --light:    #C8DCE8;
+  --gray:     #7896A8;
+  --muted:    #4A6578;
+}
+
+body {
+  background: #111827;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+  font-family: 'Barlow', sans-serif;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: rgba(255,255,255,0.05);
+  padding: 5px;
+  width: 760px;
+  max-width: 100%;
+}
+.nav-btn {
+  flex: 1;
+  padding: 9px 4px;
+  background: transparent;
+  border: none;
+  color: var(--gray);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-btn:hover { color: var(--light); background: rgba(255,255,255,0.05); }
+.nav-btn.active { background: var(--orange); color: var(--white); }
+
+.poster {
+  width: 760px;
+  max-width: 100%;
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06);
+  min-height: 960px;
+  display: flex;
+  flex-direction: column;
+}
+
+.page { display: none; flex-direction: column; flex: 1; }
+.page.active { display: flex; }
+
+.top-stripe { height: 6px; background: linear-gradient(90deg, var(--teal) 0%, var(--orange) 100%); flex-shrink: 0; }
+.bottom-stripe { height: 5px; background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 100%); flex-shrink: 0; margin-top: auto; }
+
+.page-footer {
+  padding: 15px 48px 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.footer-org {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.footer-org small {
+  display: block;
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--muted);
+  text-transform: none;
+  margin-top: 1px;
+}
+.footer-right { font-size: 10px; color: var(--muted); text-align: right; line-height: 1.7; }
+.footer-right a { color: var(--teal2); text-decoration: none; }
+.page-dots { display: flex; gap: 6px; align-items: center; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); cursor: pointer; transition: background 0.2s; }
+.dot.active { background: var(--orange); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page.active .anim { animation: fadeUp 0.3s ease both; }
+.page.active .anim:nth-child(2) { animation-delay: 0.05s; }
+.page.active .anim:nth-child(3) { animation-delay: 0.10s; }
+.page.active .anim:nth-child(4) { animation-delay: 0.15s; }
+
+/* ────────────────────────────────────
+   PAGE 1 — COVER
+──────────────────────────────────── */
+.cover-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 52px 56px 36px;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+.cover-geo {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+.geo-c1 {
+  position: absolute; top: -130px; right: -130px;
+  width: 580px; height: 580px; border-radius: 50%;
+  border: 72px solid rgba(9,145,178,0.07);
+}
+.geo-c2 {
+  position: absolute; bottom: 160px; left: -90px;
+  width: 380px; height: 380px; border-radius: 50%;
+  border: 52px solid rgba(249,115,22,0.05);
+}
+.geo-diag {
+  position: absolute; top: 0; right: 0;
+  width: 0; height: 0; border-style: solid;
+  border-width: 0 340px 240px 0;
+  border-color: transparent rgba(9,145,178,0.055) transparent transparent;
+}
+.geo-grid {
+  position: absolute; bottom: 0; right: 0;
+  width: 280px; height: 280px;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse at bottom right, black 20%, transparent 70%);
+  mask-image: radial-gradient(ellipse at bottom right, black 20%, transparent 70%);
+}
+
+.cover-tags { display: flex; gap: 8px; margin-bottom: 48px; }
+.tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 12px;
+}
+.tag-pce { background: var(--orange); color: var(--white); }
+.tag-hrd { background: rgba(9,145,178,0.2); color: var(--teal2); border: 1px solid rgba(9,145,178,0.3); }
+.tag-law { background: rgba(255,255,255,0.05); color: var(--light); border: 1px solid rgba(255,255,255,0.1); }
+
+.cover-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--teal2); margin-bottom: 14px;
+}
+.cover-h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 100px;
+  line-height: 0.87; text-transform: uppercase;
+  letter-spacing: -2px; color: var(--white);
+}
+.cover-h1 .acc { color: var(--orange); }
+.cover-sub {
+  font-size: 16px; font-weight: 300; color: var(--light);
+  margin-top: 18px; line-height: 1.55; max-width: 500px;
+}
+.cover-badge {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: rgba(9,145,178,0.12);
+  border: 1px solid rgba(9,145,178,0.25);
+  padding: 9px 18px; margin-top: 24px;
+}
+.badge-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 19px; font-weight: 800; color: var(--teal2); letter-spacing: 1px;
+}
+.badge-txt { font-size: 11px; color: var(--light); font-weight: 300; line-height: 1.35; }
+
+.cover-info {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.07);
+  margin-top: 48px;
+}
+.info-cell {
+  background: rgba(255,255,255,0.03);
+  padding: 18px 22px;
+  transition: background 0.2s;
+}
+.info-cell:hover { background: rgba(255,255,255,0.07); }
+.ic-icon { font-size: 18px; margin-bottom: 5px; }
+.ic-lbl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 3px;
+}
+.ic-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px; font-weight: 700; color: var(--white); line-height: 1.2;
+}
+.ic-val small { font-size: 11px; color: var(--light); font-weight: 400; font-family: 'Barlow', sans-serif; }
+
+/* ────────────────────────────────────
+   INNER HEADER (pages 2-5)
+──────────────────────────────────── */
+.ih {
+  padding: 38px 48px 26px;
+  background: var(--navy2);
+  position: relative; overflow: hidden; flex-shrink: 0;
+}
+.ih::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, var(--orange) 0%, transparent 65%);
+}
+.ih-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 7px;
+}
+.ih-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 40px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: -0.5px; color: var(--white); line-height: 1;
+}
+.ih-sub { font-size: 13px; font-weight: 300; color: var(--light); margin-top: 8px; line-height: 1.5; }
+
+.inner-content { padding: 28px 48px; flex: 1; }
+
+/* ────────────────────────────────────
+   PAGE 2 — OBJEKTIF
+──────────────────────────────────── */
+.obj-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 28px;
+}
+.oc {
+  background: var(--navy2); padding: 20px;
+  border-top: 3px solid var(--teal); position: relative;
+  transition: transform 0.2s;
+}
+.oc:hover { transform: translateY(-2px); }
+.oc:nth-child(2n) { border-top-color: var(--orange); }
+.oc-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 54px; font-weight: 800;
+  color: rgba(255,255,255,0.05);
+  position: absolute; top: 8px; right: 12px; line-height: 1;
+}
+.oc-ico { font-size: 22px; margin-bottom: 9px; display: block; }
+.oc-ttl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--white); margin-bottom: 7px; line-height: 1.2;
+}
+.oc-dsc { font-size: 12px; font-weight: 300; color: var(--light); line-height: 1.55; }
+.oc-tag {
+  display: inline-block; margin-top: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--teal2);
+  background: rgba(9,145,178,0.1); padding: 3px 8px;
+}
+.oc:nth-child(2n) .oc-tag { color: var(--orange2); background: rgba(249,115,22,0.1); }
+
+.target-blk {
+  background: var(--navy2); border-left: 4px solid var(--orange);
+  padding: 18px 22px;
+}
+.tgt-ttl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 13px;
+}
+.tgt-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 9px; }
+.tgt-item { display: flex; gap: 7px; align-items: flex-start; }
+.tgt-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); margin-top: 5px; flex-shrink: 0; }
+.tgt-txt { font-size: 11px; color: var(--light); line-height: 1.4; }
+
+/* ────────────────────────────────────
+   PAGE 3 — TENAGA PENGAJAR
+──────────────────────────────────── */
+.trainer-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; margin-bottom: 20px;
+}
+.tc { background: var(--navy2); overflow: hidden; transition: transform 0.2s; }
+.tc:hover { transform: translateY(-2px); }
+.tc-top { display: flex; gap: 14px; align-items: flex-start; padding: 18px 18px 0; }
+.tc-av {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--navy3); border: 2px solid var(--teal);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 800; color: var(--teal2); flex-shrink: 0;
+}
+.tc:nth-child(2n) .tc-av { border-color: var(--orange); color: var(--orange2); }
+.tc-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 700; text-transform: uppercase;
+  color: var(--white); letter-spacing: 0.3px; line-height: 1.1;
+}
+.tc-role { font-size: 11px; color: var(--teal2); margin-top: 3px; line-height: 1.3; }
+.tc:nth-child(2n) .tc-role { color: var(--orange2); }
+.tc-cert {
+  display: inline-block; margin-top: 5px;
+  background: rgba(255,255,255,0.05);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gray); padding: 2px 7px;
+}
+.tc-body { padding: 12px 18px 18px; }
+.tc-bio { font-size: 11px; font-weight: 300; color: var(--light); line-height: 1.6; margin-bottom: 10px; }
+.tc-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tc-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--teal2);
+  background: rgba(9,145,178,0.12); border: 1px solid rgba(9,145,178,0.2);
+  padding: 3px 7px;
+}
+.tc:nth-child(2n) .tc-tag { color: var(--orange2); background: rgba(249,115,22,0.1); border-color: rgba(249,115,22,0.2); }
+
+.accred {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 14px 18px; display: flex; gap: 14px; align-items: center;
+}
+.accred-ico { font-size: 22px; }
+.accred-txt { font-size: 12px; font-weight: 300; color: var(--light); line-height: 1.5; }
+.accred-txt strong { color: var(--white); font-weight: 600; display: block; }
+
+/* ────────────────────────────────────
+   PAGE 4 — JADUAL
+──────────────────────────────────── */
+.sched-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 22px; }
+.sd-hdr { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+.sd-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; padding: 5px 11px; color: var(--white);
+}
+.d1 .sd-badge { background: var(--teal); }
+.d2 .sd-badge { background: var(--orange); }
+.sd-title { font-size: 11px; font-weight: 600; color: var(--light); flex: 1; line-height: 1.3; }
+
+.st { width: 100%; border-collapse: collapse; }
+.st tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+.st tr:last-child { border-bottom: none; }
+.st tr.brk td { opacity: 0.5; }
+.st tr.hl { background: rgba(249,115,22,0.06); }
+.st tr.hl td:first-child { border-left: 2px solid var(--orange); padding-left: 10px; }
+.d1 .st tr:not(.brk):not(.hl) td:first-child { border-left: 2px solid var(--teal); padding-left: 10px; }
+.d2 .st tr:not(.brk):not(.hl) td:first-child { border-left: 2px solid var(--orange); padding-left: 10px; }
+.st tr.brk td:first-child { border-left: 2px solid transparent; padding-left: 10px; }
+.st td { padding: 8px 10px; vertical-align: top; font-size: 11.5px; }
+.st td:first-child {
+  white-space: nowrap;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600; color: var(--gray);
+  width: 52px;
+}
+.st td:last-child { color: var(--white); font-weight: 400; line-height: 1.35; }
+.st .sub { display: block; font-size: 10px; color: var(--muted); font-weight: 300; font-style: italic; margin-top: 1px; }
+
+.outcomes-blk { background: var(--navy2); border-top: 3px solid var(--teal); padding: 16px 20px; }
+.out-ttl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--teal2); margin-bottom: 11px;
+}
+.out-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.out-item { display: flex; gap: 7px; align-items: flex-start; }
+.out-ico { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.out-txt { font-size: 11px; color: var(--light); font-weight: 300; line-height: 1.45; }
+
+/* ────────────────────────────────────
+   PAGE 5 — PENDAFTARAN
+──────────────────────────────────── */
+.reg-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 22px; }
+
+.frm-ttl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--orange); margin-bottom: 14px;
+}
+.frm-note {
+  font-size: 11.5px; font-weight: 300; color: var(--light);
+  line-height: 1.6; margin-bottom: 16px;
+  background: rgba(249,115,22,0.06); border-left: 3px solid var(--orange);
+  padding: 9px 13px;
+}
+.fg { margin-bottom: 11px; }
+.fl {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gray); margin-bottom: 5px;
+}
+.fi, .fsel, .fta {
+  width: 100%; background: var(--navy2);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 9px 12px; font-family: 'Barlow', sans-serif;
+  font-size: 13px; color: var(--white); outline: none;
+  transition: border-color 0.2s; border-radius: 0; appearance: none; -webkit-appearance: none;
+}
+.fi::placeholder { color: var(--muted); font-weight: 300; }
+.fi:focus, .fsel:focus, .fta:focus { border-color: var(--teal); background: var(--navy3); }
+.fsel { color: var(--light); cursor: pointer; }
+.fsel option { background: var(--navy2); }
+.fta { resize: vertical; min-height: 66px; }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fsub {
+  width: 100%; padding: 13px; background: var(--orange); border: none;
+  color: var(--white); font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 800; letter-spacing: 2.5px;
+  text-transform: uppercase; cursor: pointer;
+  transition: background 0.2s, transform 0.1s; margin-top: 5px;
+}
+.fsub:hover { background: var(--orange2); transform: translateY(-1px); }
+
+.pay-ttl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--teal2); margin-bottom: 14px;
+}
+.fee-cards { display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px; }
+.fee-c {
+  background: var(--navy2); padding: 13px 15px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-left: 3px solid transparent;
+}
+.fee-c.main { border-left-color: var(--teal); }
+.fee-c.early { border-left-color: var(--orange); background: rgba(249,115,22,0.06); }
+.fee-c.grp { border-left-color: var(--muted); }
+.fee-type { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); line-height: 1.2; }
+.fee-note-s { font-size: 10px; color: var(--gray); font-weight: 300; margin-top: 1px; }
+.fee-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px; font-weight: 800; color: var(--white); text-align: right;
+}
+.fee-price small { font-size: 11px; color: var(--gray); font-weight: 400; display: block; }
+.fee-c.early .fee-price { color: var(--orange2); }
+
+.pmtl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 9px;
+}
+.bank-card {
+  background: var(--navy2); padding: 13px 15px;
+  border-left: 3px solid var(--teal); margin-bottom: 9px;
+}
+.bank-nm { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); }
+.bank-acc { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; color: var(--teal2); letter-spacing: 2px; margin: 3px 0; }
+.bank-hldr { font-size: 11px; color: var(--gray); }
+
+.pay-note-t { font-size: 10px; color: var(--muted); line-height: 1.6; font-weight: 300; font-style: italic; margin-top: 10px; }
+.contact-blk {
+  margin-top: 12px; background: rgba(9,145,178,0.08);
+  border: 1px solid rgba(9,145,178,0.15); padding: 11px 13px;
+}
+.ct-ttl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--teal2); margin-bottom: 8px;
+}
+.ct-row { display: flex; gap: 7px; align-items: center; margin-bottom: 5px; font-size: 11px; color: var(--light); }
+.ct-row:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="goto(0)">① Cover</button>
+  <button class="nav-btn" onclick="goto(1)">② Objektif</button>
+  <button class="nav-btn" onclick="goto(2)">③ Tenaga Pengajar</button>
+  <button class="nav-btn" onclick="goto(3)">④ Jadual</button>
+  <button class="nav-btn" onclick="goto(4)">⑤ Pendaftaran</button>
+</nav>
+
+<div class="poster">
+
+<!-- ══════════ PAGE 1: COVER ══════════ -->
+<div class="page active" id="p0">
+  <div class="top-stripe"></div>
+  <div class="cover-body">
+    <div class="cover-geo">
+      <div class="geo-c1"></div><div class="geo-c2"></div>
+      <div class="geo-diag"></div><div class="geo-grid"></div>
+    </div>
+
+    <div class="anim">
+      <div class="cover-tags">
+        <span class="tag tag-pce">PCE Training</span>
+        <span class="tag tag-hrd">HRD Corp Accredited</span>
+        <span class="tag tag-law">Akta A1648</span>
+      </div>
+      <div class="cover-eyebrow">Program Latihan Keselamatan Pekerjaan</div>
+      <div class="cover-h1">Sinergi<br><span class="acc">Selamat</span></div>
+      <div class="cover-sub">Membudayakan Pindaan Akta Keselamatan &amp; Kesihatan Pekerjaan — memahami, melaksana, dan mengekalkan budaya selamat di tempat kerja.</div>
+      <div class="cover-badge">
+        <div class="badge-num">AKTA A1648</div>
+        <div class="badge-txt">Pindaan Akta KKP 2022<br>Berkuat kuasa — semua sektor</div>
+      </div>
+    </div>
+
+    <div class="anim">
+      <div class="cover-info">
+        <div class="info-cell">
+          <div class="ic-icon">📅</div>
+          <div class="ic-lbl">Tarikh</div>
+          <div class="ic-val">TBC <small>2025</small></div>
+        </div>
+        <div class="info-cell">
+          <div class="ic-icon">📍</div>
+          <div class="ic-lbl">Venue</div>
+          <div class="ic-val">Hotel Casuarina <small>Meru, Ipoh, Perak</small></div>
+        </div>
+        <div class="info-cell">
+          <div class="ic-icon">🕐</div>
+          <div class="ic-lbl">Tempoh</div>
+          <div class="ic-val">2 Hari <small>1 Malam · 7 Slot</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer anim">
+    <div class="footer-org">Perak Centre of Excellence (PCE)<small>Subsidiari milik penuh PKNPk · Ipoh, Perak</small></div>
+    <div class="page-dots">
+      <div class="dot active" onclick="goto(0)"></div><div class="dot" onclick="goto(1)"></div>
+      <div class="dot" onclick="goto(2)"></div><div class="dot" onclick="goto(3)"></div><div class="dot" onclick="goto(4)"></div>
+    </div>
+    <div class="footer-right">HRD Corp Accredited Provider<br><a href="#">www.pce.com.my</a></div>
+  </div>
+  <div class="bottom-stripe"></div>
+</div>
+
+<!-- ══════════ PAGE 2: OBJEKTIF ══════════ -->
+<div class="page" id="p1">
+  <div class="top-stripe"></div>
+  <div class="ih anim">
+    <div class="ih-eyebrow">Sinergi Selamat · KKP 2022</div>
+    <div class="ih-title">Objektif Program</div>
+    <div class="ih-sub">Di akhir program ini, peserta akan mampu memahami, mempraktikkan, dan menerajui budaya keselamatan di organisasi masing-masing.</div>
+  </div>
+  <div class="inner-content anim">
+    <div class="obj-grid">
+      <div class="oc">
+        <div class="oc-num">01</div>
+        <span class="oc-ico">⚖️</span>
+        <div class="oc-ttl">Memahami Perundangan</div>
+        <div class="oc-dsc">Menjelaskan perubahan kritikal dalam Akta A1648 (Pindaan 2022), termasuk kenaikan penalti maksimum RM500,000 dan perluasan skop akta ke semua sektor pekerjaan.</div>
+        <span class="oc-tag">Teori · Undang-undang</span>
+      </div>
+      <div class="oc">
+        <div class="oc-num">02</div>
+        <span class="oc-ico">🛡️</span>
+        <div class="oc-ttl">Hak &amp; Tanggungjawab</div>
+        <div class="oc-dsc">Mengenal pasti hak pekerja untuk mengalihkan diri dari bahaya (Right to Refuse) dan tanggungjawab majikan serta prinsipal di bawah Seksyen 18A Akta.</div>
+        <span class="oc-tag">Seksyen 18A · Right to Refuse</span>
+      </div>
+      <div class="oc">
+        <div class="oc-num">03</div>
+        <span class="oc-ico">🤝</span>
+        <div class="oc-ttl">Budaya Sinergi</div>
+        <div class="oc-dsc">Merapatkan jurang antara Junior (pelaksana) dan Senior (pembuat keputusan) dalam melaporkan dan menangani isu keselamatan tanpa birokrasi yang rumit.</div>
+        <span class="oc-tag">Komunikasi · SSS Forum</span>
+      </div>
+      <div class="oc">
+        <div class="oc-num">04</div>
+        <span class="oc-ico">🔍</span>
+        <div class="oc-ttl">Aplikasi Praktikal</div>
+        <div class="oc-dsc">Mengaplikasikan teknik HIRARC yang dikemas kini menggunakan peranti digital untuk memastikan tempat kerja sentiasa dalam keadaan Audit-Ready.</div>
+        <span class="oc-tag">HIRARC · Audit-Ready</span>
+      </div>
+    </div>
+    <div class="target-blk">
+      <div class="tgt-ttl">Peserta Sasaran</div>
+      <div class="tgt-grid">
+        <div class="tgt-item"><div class="tgt-dot"></div><div class="tgt-txt">Pengurus &amp; Eksekutif</div></div>
+        <div class="tgt-item"><div class="tgt-dot"></div><div class="tgt-txt">Pegawai Keselamatan (SHO)</div></div>
+        <div class="tgt-item"><div class="tgt-dot"></div><div class="tgt-txt">Penyelia &amp; Ketua Jabatan</div></div>
+        <div class="tgt-item"><div class="tgt-dot"></div><div class="tgt-txt">HR &amp; Pentadbiran</div></div>
+        <div class="tgt-item"><div class="tgt-dot"></div><div class="tgt-txt">Wakil Keselamatan Pekerja</div></div>
+        <div class="tgt-item"><div class="tgt-dot"></div><div class="tgt-txt">OSH Coordinator (OSHC)</div></div>
+        <div class="tgt-item"><div class="tgt-dot"></div><div class="tgt-txt">Pengurus Kilang / Operasi</div></div>
+        <div class="tgt-item"><div class="tgt-dot"></div><div class="tgt-txt">Mana-mana yang berminat</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer anim">
+    <div class="footer-org">Perak Centre of Excellence (PCE)<small>Subsidiari milik penuh PKNPk</small></div>
+    <div class="page-dots">
+      <div class="dot" onclick="goto(0)"></div><div class="dot active" onclick="goto(1)"></div>
+      <div class="dot" onclick="goto(2)"></div><div class="dot" onclick="goto(3)"></div><div class="dot" onclick="goto(4)"></div>
+    </div>
+    <div class="footer-right">Halaman 2 / 5</div>
+  </div>
+  <div class="bottom-stripe"></div>
+</div>
+
+<!-- ══════════ PAGE 3: TENAGA PENGAJAR ══════════ -->
+<div class="page" id="p2">
+  <div class="top-stripe"></div>
+  <div class="ih anim">
+    <div class="ih-eyebrow">Sinergi Selamat · KKP 2022</div>
+    <div class="ih-title">Tenaga Pengajar</div>
+    <div class="ih-sub">Difasilitasi oleh pakar berpengalaman dalam bidang keselamatan pekerjaan, perundangan KKP, dan pembangunan organisasi.</div>
+  </div>
+  <div class="inner-content anim">
+    <div class="trainer-grid">
+      <div class="tc">
+        <div class="tc-top">
+          <div class="tc-av">AS</div>
+          <div>
+            <div class="tc-name">Ahmad Shahril bin Zulkifli</div>
+            <div class="tc-role">Lead Trainer — OSH &amp; Perundangan KKP</div>
+            <div class="tc-cert">DOSH Registered · NIOSH Certified</div>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-bio">Lebih 18 tahun pengalaman dalam bidang keselamatan pekerjaan industri pembuatan dan pembinaan. Pernah berkhidmat sebagai Pegawai Keselamatan Berdaftar (SHO) di syarikat multinasional dan kini aktif sebagai trainer bertauliah HRD Corp.</div>
+          <div class="tc-tags">
+            <span class="tc-tag">Akta KKP</span><span class="tc-tag">HIRARC</span>
+            <span class="tc-tag">Accident Investigation</span><span class="tc-tag">OSH MS</span>
+          </div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tc-top">
+          <div class="tc-av">NR</div>
+          <div>
+            <div class="tc-name">Nor Rasyidah binti Hamdan</div>
+            <div class="tc-role">Facilitator — Budaya Keselamatan &amp; HR Compliance</div>
+            <div class="tc-cert">HRD Corp TTT · HRDF Approved</div>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-bio">Pakar dalam pembangunan budaya keselamatan organisasi dan pematuhan HR. Berpengalaman memfasilitasi lebih 200 sesi latihan untuk syarikat GLC, SME dan agensi kerajaan di Semenanjung Malaysia.</div>
+          <div class="tc-tags">
+            <span class="tc-tag">Budaya Selamat</span><span class="tc-tag">HR Compliance</span>
+            <span class="tc-tag">Fasilitasi</span><span class="tc-tag">EA 1955</span>
+          </div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tc-top">
+          <div class="tc-av">MF</div>
+          <div>
+            <div class="tc-name">Mohd Faizal bin Idrus</div>
+            <div class="tc-role">Subject Matter Expert — HIRARC &amp; Digital Safety</div>
+            <div class="tc-cert">ISO 45001 Lead Auditor · NEBOSH</div>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-bio">Pakar HIRARC dan audit sistem pengurusan keselamatan. Memimpin sesi lapangan "Hazard Hunt" menggunakan pendekatan digital moden. Berkelayakan NEBOSH IGC dan Lead Auditor ISO 45001.</div>
+          <div class="tc-tags">
+            <span class="tc-tag">ISO 45001</span><span class="tc-tag">HIRARC Digital</span>
+            <span class="tc-tag">Field Audit</span><span class="tc-tag">NEBOSH</span>
+          </div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tc-top">
+          <div class="tc-av">ZA</div>
+          <div>
+            <div class="tc-name">Zarina binti Abdul Aziz</div>
+            <div class="tc-role">Co-Facilitator — OSHC &amp; Compliance</div>
+            <div class="tc-cert">Registered OSHC · DOSH Panel Trainer</div>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div class="tc-bio">Antara pelopor latihan OSH Coordinator pasca Pindaan 2022. Pakar dalam menjelaskan implikasi Seksyen 18A dan liabiliti pengarah kepada pihak pengurusan atasan.</div>
+          <div class="tc-tags">
+            <span class="tc-tag">OSHC</span><span class="tc-tag">Seksyen 18A</span>
+            <span class="tc-tag">Liabiliti</span><span class="tc-tag">Pindaan 2022</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accred">
+      <div class="accred-ico">🏅</div>
+      <div class="accred-txt">
+        <strong>Semua trainer berdaftar dan bertauliah HRD Corp</strong>
+        Program ini layak dituntut melalui SBL-Khas. Sila hubungi PCE untuk Surat Akuan HRD Corp.
+      </div>
+    </div>
+  </div>
+  <div class="page-footer anim">
+    <div class="footer-org">Perak Centre of Excellence (PCE)<small>Subsidiari milik penuh PKNPk</small></div>
+    <div class="page-dots">
+      <div class="dot" onclick="goto(0)"></div><div class="dot" onclick="goto(1)"></div>
+      <div class="dot active" onclick="goto(2)"></div><div class="dot" onclick="goto(3)"></div><div class="dot" onclick="goto(4)"></div>
+    </div>
+    <div class="footer-right">Halaman 3 / 5</div>
+  </div>
+  <div class="bottom-stripe"></div>
+</div>
+
+<!-- ══════════ PAGE 4: JADUAL ══════════ -->
+<div class="page" id="p3">
+  <div class="top-stripe"></div>
+  <div class="ih anim">
+    <div class="ih-eyebrow">Sinergi Selamat · KKP 2022</div>
+    <div class="ih-title">Jadual Tentatif</div>
+    <div class="ih-sub">2 Hari 1 Malam — menggabungkan teori, perundangan, forum interaktif, dan kerja lapangan.</div>
+  </div>
+  <div class="inner-content anim">
+    <div class="sched-wrap">
+      <div class="d1">
+        <div class="sd-hdr">
+          <div class="sd-badge">Hari 1</div>
+          <div class="sd-title">Kupasan Akta &amp; Tanggungjawab Kepimpinan</div>
+        </div>
+        <table class="st">
+          <tr class="brk"><td>08:30</td><td>Pendaftaran &amp; Sarapan<span class="sub">Edaran kit 'Sinergi Selamat'</span></td></tr>
+          <tr><td>09:00</td><td><strong>Slot 1: Navigasi Akta A1648</strong><span class="sub">Kupasan terperinci pindaan KKP 2022 — apa yang berubah?</span></td></tr>
+          <tr class="brk"><td>10:30</td><td>Rehat Minum Pagi</td></tr>
+          <tr><td>11:00</td><td><strong>Slot 2: Liabiliti &amp; RM500K</strong><span class="sub">Implikasi denda, tanggungjawab Pengarah/Senior Mgmt, kes mahkamah terkini</span></td></tr>
+          <tr class="brk"><td>01:00</td><td>Makan Tengahari &amp; Rehat<span class="sub">Bufet Casuarina</span></td></tr>
+          <tr><td>02:30</td><td><strong>Slot 3: SSS — Sembang Santai Safety</strong><span class="sub">Forum interaktif Junior &amp; Senior</span></td></tr>
+          <tr><td>04:00</td><td><strong>Slot 4: OSH Coordinator (OSHC)</strong><span class="sub">Peranan baharu bagi org. 5 pekerja ke atas</span></td></tr>
+          <tr class="brk"><td>05:00</td><td>Minum Petang &amp; Bersurai</td></tr>
+        </table>
+      </div>
+      <div class="d2">
+        <div class="sd-hdr">
+          <div class="sd-badge">Hari 2</div>
+          <div class="sd-title">Aplikasi Praktikal &amp; Budaya Sinergi</div>
+        </div>
+        <table class="st">
+          <tr><td>09:00</td><td><strong>Slot 5: Masterclass HIRARC</strong><span class="sub">Teknik kenalpasti bahaya secara moden — digital &amp; foto</span></td></tr>
+          <tr class="brk"><td>10:30</td><td>Rehat Minum Pagi</td></tr>
+          <tr><td>11:00</td><td><strong>Slot 6: "The Great Hazard Hunt"</strong><span class="sub">Aktiviti lapangan — cari 5 punca bahaya &amp; cadangkan kawalan</span></td></tr>
+          <tr class="brk"><td>01:00</td><td>Makan Tengahari</td></tr>
+          <tr><td>02:30</td><td><strong>Slot 7: Merangka Pelan Tindakan</strong><span class="sub">Junior + Senior rangka SOP keselamatan baharu</span></td></tr>
+          <tr class="hl"><td>03:45</td><td><strong>🎓 Majlis Penutup &amp; Ikrar</strong><span class="sub">Penyerahan sijil &amp; Ikrar 'Sinergi Selamat'</span></td></tr>
+          <tr class="brk"><td>04:30</td><td>Minum Petang &amp; Check-out</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="outcomes-blk">
+      <div class="out-ttl">Hasil Pembelajaran Utama</div>
+      <div class="out-row">
+        <div class="out-item"><div class="out-ico">📜</div><div class="out-txt">Memahami &amp; mematuhi Akta A1648 Pindaan 2022 sepenuhnya</div></div>
+        <div class="out-item"><div class="out-ico">📋</div><div class="out-txt">Menghasilkan 1 SOP keselamatan baharu untuk jabatan sendiri</div></div>
+        <div class="out-item"><div class="out-ico">🏆</div><div class="out-txt">Sijil penyertaan &amp; pengiktirafan HRD Corp untuk tuntutan SBL</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer anim">
+    <div class="footer-org">Perak Centre of Excellence (PCE)<small>Subsidiari milik penuh PKNPk</small></div>
+    <div class="page-dots">
+      <div class="dot" onclick="goto(0)"></div><div class="dot" onclick="goto(1)"></div>
+      <div class="dot" onclick="goto(2)"></div><div class="dot active" onclick="goto(3)"></div><div class="dot" onclick="goto(4)"></div>
+    </div>
+    <div class="footer-right">Halaman 4 / 5</div>
+  </div>
+  <div class="bottom-stripe"></div>
+</div>
+
+<!-- ══════════ PAGE 5: PENDAFTARAN ══════════ -->
+<div class="page" id="p4">
+  <div class="top-stripe"></div>
+  <div class="ih anim">
+    <div class="ih-eyebrow">Sinergi Selamat · KKP 2022</div>
+    <div class="ih-title">Pendaftaran</div>
+    <div class="ih-sub">Tempat adalah terhad. Sila daftarkan diri sebelum tarikh tutup pendaftaran.</div>
+  </div>
+  <div class="inner-content anim">
+    <div class="reg-layout">
+
+      <div>
+        <div class="frm-ttl">Borang Pendaftaran</div>
+        <div class="frm-note">Lengkapkan borang ini dan hantar kepada PCE. Pengesahan akan dihantar melalui e-mel dalam masa 2 hari bekerja.</div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Nama Penuh</label><input class="fi" type="text" placeholder="Nama seperti dalam IC"></div>
+          <div class="fg"><label class="fl">No. IC / Pasport</label><input class="fi" type="text" placeholder="000000-00-0000"></div>
+        </div>
+        <div class="fg"><label class="fl">Jawatan / Designation</label><input class="fi" type="text" placeholder="Contoh: Pengurus HR"></div>
+        <div class="fg"><label class="fl">Nama Syarikat / Organisasi</label><input class="fi" type="text" placeholder="Nama penuh syarikat"></div>
+        <div class="frow">
+          <div class="fg"><label class="fl">No. Telefon</label><input class="fi" type="tel" placeholder="+60 1X-XXX XXXX"></div>
+          <div class="fg"><label class="fl">E-mel</label><input class="fi" type="email" placeholder="nama@syarikat.com"></div>
+        </div>
+        <div class="fg">
+          <label class="fl">Kadar Penyertaan</label>
+          <select class="fsel">
+            <option value="">-- Pilih Kadar --</option>
+            <option>Kadar Biasa — RM 1,200 / pax</option>
+            <option>Early Bird — RM 980 / pax</option>
+            <option>Kumpulan 3 pax+ — RM 1,050 / pax</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Keperluan Khas / Maklumat Tambahan</label><textarea class="fta" placeholder="Keperluan diet, bilangan peserta, kod HRD Corp..."></textarea></div>
+        <button class="fsub">Hantar Pendaftaran →</button>
+      </div>
+
+      <div>
+        <div class="pay-ttl">Maklumat Bayaran</div>
+        <div class="fee-cards">
+          <div class="fee-c main">
+            <div><div class="fee-type">Kadar Biasa</div><div class="fee-note-s">Termasuk penginapan &amp; makan</div></div>
+            <div class="fee-price">RM 1,200<small>/ pax</small></div>
+          </div>
+          <div class="fee-c early">
+            <div><div class="fee-type">Early Bird 🔥</div><div class="fee-note-s">Daftar sebelum tarikh TBC</div></div>
+            <div class="fee-price">RM 980<small>/ pax</small></div>
+          </div>
+          <div class="fee-c grp">
+            <div><div class="fee-type">Kumpulan (3 pax+)</div><div class="fee-note-s">Syarikat yang sama</div></div>
+            <div class="fee-price">RM 1,050<small>/ pax</small></div>
+          </div>
+        </div>
+        <div class="pmtl">Akaun Pembayaran</div>
+        <div class="bank-card">
+          <div class="bank-nm">Maybank Berhad</div>
+          <div class="bank-acc">5621 4567 8901</div>
+          <div class="bank-hldr">PERAK CENTRE OF EXCELLENCE SDN BHD</div>
+        </div>
+        <div class="pay-note-t">Sila e-mel resit bayaran beserta nama peserta &amp; syarikat. Invois rasmi &amp; surat akuan HRD Corp akan dihantar dalam masa 3 hari bekerja.</div>
+        <div class="contact-blk">
+          <div class="ct-ttl">Hubungi Kami</div>
+          <div class="ct-row">📞 +605-XXX XXXX (Isnin–Jumaat, 8:30–5:00)</div>
+          <div class="ct-row">📧 training@pce.com.my</div>
+          <div class="ct-row">💬 WhatsApp: +60 1X-XXX XXXX</div>
+          <div class="ct-row">🌐 www.pce.com.my/training</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer anim">
+    <div class="footer-org">Perak Centre of Excellence (PCE)<small>Subsidiari milik penuh PKNPk</small></div>
+    <div class="page-dots">
+      <div class="dot" onclick="goto(0)"></div><div class="dot" onclick="goto(1)"></div>
+      <div class="dot" onclick="goto(2)"></div><div class="dot" onclick="goto(3)"></div><div class="dot active" onclick="goto(4)"></div>
+    </div>
+    <div class="footer-right">Halaman 5 / 5</div>
+  </div>
+  <div class="bottom-stripe"></div>
+</div>
+
+</div><!-- /poster -->
+
+<script>
+function goto(n) {
+  document.querySelectorAll('.page').forEach((p,i) => p.classList.toggle('active', i===n));
+  document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i===n));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+document.addEventListener('keydown', e => {
+  const cur = [...document.querySelectorAll('.page')].findIndex(p => p.classList.contains('active'));
+  if (e.key === 'ArrowRight' && cur < 4) goto(cur+1);
+  if (e.key === 'ArrowLeft'  && cur > 0) goto(cur-1);
+});
+</script>
+</body>
+</html>
